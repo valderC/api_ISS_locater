@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>ISS locater</h1>
+        <p>Longitude is <span id='long'></span></p>
+        <p>Latitude is <span id='lang'></span></p>
+        <p>speed of the shuttle is <span id='speed'></span> mph</p>
+    </div>
+ 
+    <script>
+
+        getISS(); 
+        //sends new api fetch request GET every 2 seconds 
+        setInterval(getISS, 2000); 
+        
+    async function getISS(){
+        const api_url = 'https://api.wheretheiss.at/v1/satellites/25544'
+        const responce = await fetch(api_url); 
+
+        const data = await responce.json(); 
+        document.getElementById('long').textContent = data.latitude; 
+        document.getElementById('lang').textContent = data.longitude; 
+        document.getElementById('speed').textContent = data.velocity; 
+    }
+
+    </script>
+</body>
+</html>
